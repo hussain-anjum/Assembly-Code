@@ -1,0 +1,35 @@
+;reverse a bit pattern
+
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+    A       DB 10111011B
+    B       DB ?
+
+.CODE
+MAIN PROC
+    ; INITIALIZE DATA
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    ; REVERSING A AND STORING IT IN B
+    MOV AL, A
+    MOV CX, 08H
+    XOR BX, BX
+    
+    ; LOOP PART
+RETURN:
+    SHL AL, 1
+    RCR BL, 1
+    LOOP RETURN
+    
+    ; STORING THE REVERSE THE PATTERN IN B
+    MOV B, BL
+    
+    ; ENDING THE PROGRAM
+    MOV AH, 4CH
+    INT 21H
+    
+MAIN ENDP
+END MAIN
